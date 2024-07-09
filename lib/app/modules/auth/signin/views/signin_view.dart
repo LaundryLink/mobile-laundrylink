@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:laundry_link/app/data/utils/resources/app_theme.dart';
 import 'package:laundry_link/app/modules/widgets/custom_active_button.dart';
+import 'package:laundry_link/app/routes/app_pages.dart';
 
 class SigninView extends StatelessWidget {
   const SigninView({super.key});
@@ -43,11 +44,13 @@ class SigninView extends StatelessWidget {
               CustomActiveButton(
                   buttonText: "Login",
                   onTap: () {
+                    Get.toNamed(Routes.SIGNINFORM);
                     debugPrint("Login Button");
                   }),
               GestureDetector(
                 onTap: () {
                   print('Register Button');
+                  Get.toNamed(Routes.SIGNUP);
                 },
                 child: Container(
                   width: Get.width * 0.9,
