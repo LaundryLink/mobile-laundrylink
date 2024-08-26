@@ -9,7 +9,6 @@ import '../../../../routes/app_pages.dart';
 class SignupController extends GetxController {
   // Text Editing Controllers
   final TextEditingController fullNameController = TextEditingController();
-  final TextEditingController lastNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController phoneNumberController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -56,7 +55,7 @@ class SignupController extends GetxController {
     }
 
     // Membuat instance UserModel dari input pengguna
-    UserModel user = UserModel(
+    UserRegisterModel user = UserRegisterModel(
       fullName: fullNameController.text,
       email: emailController.text,
       phoneNumber: phoneNumberController.text,
@@ -73,19 +72,25 @@ class SignupController extends GetxController {
         Resources.staticString.api_mobile + 'api/users',
         data: user.toJson(), // Mengirim data dalam bentuk JSON
         options: Options(
-          headers: {'Content-Type': 'application/json'},
-        ),
+            headers: {'Content-Type': 'application/json'},
+            validateStatus: (status) {
+              // Accept all status codes, so we can handle them manually
+              return status != null && status <= 500;
+            }),
       );
 
       if (response.statusCode == 200) {
         // Handle success response
         Get.back();
         Get.delete<SignupController>(tag: Routes.SIGNUP);
-        Get.snackbar('Success', 'User registered successfully, Please Login', duration: Duration(seconds: 5),
-            backgroundColor: Colors.green, colorText: Colors.white);
+        Get.snackbar('Success', 'User registered successfully, Please Login',
+            duration: Duration(seconds: 5),
+            backgroundColor: Colors.green,
+            colorText: Colors.white);
       } else {
         // Handle error response
-        Get.snackbar('Error', 'Failed to register user',
+        print(response.data.toString());
+        Get.snackbar('Error', response.data['errors'] ?? 'Unknow error occurred',
             backgroundColor: Colors.red);
       }
     } catch (e) {
