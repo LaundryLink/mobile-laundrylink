@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 class Resources {
   static _AppColors color = _AppColors();
   static _AppTextStyle textStyle = _AppTextStyle();
+  static _AppStaticString staticString = _AppStaticString();
 }
 
 class _AppColors {
@@ -19,4 +20,9 @@ class _AppColors {
 
 class _AppTextStyle {
   TextStyle subTitle1 = TextStyle(fontSize: 14, fontWeight: FontWeight.w500);
+}
+
+class _AppStaticString {
+  String api_web = "http://localhost:3001/";
+  String api_mobile = "http://10.0.2.2:3001/";
 }

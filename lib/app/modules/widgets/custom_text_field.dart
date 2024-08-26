@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class CustomTextField extends StatefulWidget {
   final TextEditingController controller;
@@ -32,6 +33,10 @@ class _CustomTextFieldState extends State<CustomTextField> {
       child: TextField(
         controller: widget.controller,
         keyboardType: widget.keyboardType,
+        inputFormatters: widget.keyboardType == TextInputType.phone ||
+                widget.keyboardType == TextInputType.number
+            ? [FilteringTextInputFormatter.digitsOnly]
+            : null,
         decoration: InputDecoration(
           contentPadding: EdgeInsets.symmetric(horizontal: 16),
           border: InputBorder.none,
