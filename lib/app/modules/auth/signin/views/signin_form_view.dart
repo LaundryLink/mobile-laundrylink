@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:laundry_link/app/modules/auth/signin/controllers/signin_controller.dart';
 import 'package:laundry_link/app/modules/widgets/custom_active_button.dart';
 
 import '../../../../data/utils/resources/app_theme.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../widgets/custom_text_field.dart';
 
-class SigninFormView extends StatelessWidget {
+class SigninFormView extends GetView<SigninController> {
   const SigninFormView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    controller.resetTextFields();
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Column(
         children: [
           Stack(
@@ -49,7 +52,7 @@ class SigninFormView extends StatelessWidget {
             height: Get.height * 0.01,
           ),
           CustomTextField(
-            controller: TextEditingController(),
+            controller: controller.emailController,
             hintText: "youremail@mail.com",
             keyboardType: TextInputType.emailAddress,
           ),
@@ -68,7 +71,7 @@ class SigninFormView extends StatelessWidget {
             height: Get.height * 0.01,
           ),
           CustomTextField(
-            controller: TextEditingController(),
+            controller: controller.passwordController,
             hintText: "your password",
             keyboardType: TextInputType.visiblePassword,
             iconVisible: Icons.visibility_off_outlined,
@@ -93,7 +96,11 @@ class SigninFormView extends StatelessWidget {
           SizedBox(
             height: Get.height * 0.03,
           ),
-          CustomActiveButton(buttonText: "Login", onTap: () {}),
+          Obx(() => CustomActiveButton(
+              buttonText: controller.isLoading.value ? '' : "Login",
+              onTap: () {
+                controller.isLoading.value ? null : controller.login();
+              })),
           SizedBox(
             height: Get.height * 0.03,
           ),

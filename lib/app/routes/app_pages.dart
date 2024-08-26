@@ -24,13 +24,16 @@ class AppPages {
     ),
     GetPage(name: _Paths.SPLASH, page: () => const SplashScreenView()),
     GetPage(
-        name: _Paths.SIGNIN,
-        page: () => const SigninView(),
-        binding: SigninBindings()),
+      name: _Paths.SIGNIN,
+      page: () => const SigninView(),
+    ),
     GetPage(
         name: _Paths.SIGNUP,
         page: () => SignupView(),
         binding: SignupBinding()),
-    GetPage(name: _Paths.SIGNINFORM, page: () => SigninFormView())
+    GetPage(
+        name: _Paths.SIGNINFORM,
+        page: () => SigninFormView(),
+        binding: SigninBindings())
   ];
 }

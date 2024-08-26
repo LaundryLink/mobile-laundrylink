@@ -1,17 +1,17 @@
 import 'dart:convert';
 
-UserModel userModelFromJson(String str) => UserModel.fromJson(json.decode(str));
+UserRegisterModel userModelFromJson(String str) => UserRegisterModel.fromJson(json.decode(str));
 
-String userModelToJson(UserModel data) => json.encode(data.toJson());
+String userModelToJson(UserRegisterModel data) => json.encode(data.toJson());
 
-class UserModel {
+class UserRegisterModel {
   String fullName;
   String email;
   String phoneNumber;
   String password;
   String address;
 
-  UserModel({
+  UserRegisterModel({
     required this.fullName,
     required this.email,
     required this.phoneNumber,
@@ -19,7 +19,7 @@ class UserModel {
     required this.address,
   });
 
-  factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
+  factory UserRegisterModel.fromJson(Map<String, dynamic> json) => UserRegisterModel(
         fullName: json["full_name"],
         email: json["email"],
         phoneNumber: json["phone_number"],
@@ -36,3 +36,27 @@ class UserModel {
       };
 }
 
+// model for login user
+UserLoginModel userLoginModelFromJson(String str) => UserLoginModel.fromJson(json.decode(str));
+
+String userLoginModelToJson(UserLoginModel data) => json.encode(data.toJson());
+
+class UserLoginModel {
+    String email;
+    String password;
+
+    UserLoginModel({
+        required this.email,
+        required this.password,
+    });
+
+    factory UserLoginModel.fromJson(Map<String, dynamic> json) => UserLoginModel(
+        email: json["email"],
+        password: json["password"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "email": email,
+        "password": password,
+    };
+}
