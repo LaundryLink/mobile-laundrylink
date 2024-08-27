@@ -5,6 +5,7 @@ import 'package:laundry_link/app/modules/auth/signin/views/signin_view.dart';
 import 'package:laundry_link/app/modules/auth/signup/bindings/signup_binding.dart';
 import 'package:laundry_link/app/modules/auth/signup/views/signup_view.dart';
 import 'package:laundry_link/app/modules/splash_screen/views/splash_screen_view.dart';
+import 'package:laundry_link/app/modules/widgets/under_construction_view.dart';
 
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
@@ -15,6 +16,8 @@ class AppPages {
   AppPages._();
 
   static const INITIAL = Routes.SPLASH;
+  static const LOGGED = Routes.HOME;
+  static const LOGIN = Routes.SIGNIN;
 
   static final routes = [
     GetPage(
@@ -34,6 +37,7 @@ class AppPages {
     GetPage(
         name: _Paths.SIGNINFORM,
         page: () => SigninFormView(),
-        binding: SigninBindings())
+        binding: SigninBindings()),
+    GetPage(name: _Paths.CONSTRUCTION, page: () => UnderConstructionView())
   ];
 }
