@@ -6,6 +6,7 @@ import 'package:laundry_link/app/controllers/under_construction_controller.dart'
 
 import '../controllers/home_controller.dart';
 import 'custom_app_bar_widget.dart';
+import 'custom_caraousel_widget.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);
@@ -29,12 +30,15 @@ class HomeView extends GetView<HomeController> {
               color: Colors.transparent,
               child: Padding(
                 padding: const EdgeInsets.only(left: 25.0, right: 25.0),
-                child: Column(children: [
+                child: Column(crossAxisAlignment: CrossAxisAlignment.start, mainAxisAlignment: MainAxisAlignment.start, children: [
                   CustomAppBar(constructionController: _constructionController),
-                  Container(height: Get.height * 0.047,
+                  SizedBox(height: Get.height * 0.02),
+                  Container(
+                    height: Get.height * 0.047,
                     color: Colors.transparent,
                     child: TextField(
-                      decoration: InputDecoration(contentPadding: EdgeInsets.only(top: 12.0),
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.only(top: 12.0),
                         filled: true,
                         fillColor: Colors.white,
                         focusColor: Colors.white,
@@ -43,6 +47,7 @@ class HomeView extends GetView<HomeController> {
                             gapPadding: 0.0,
                             borderSide: BorderSide.none),
                         hintText: "Mau cuci apa hari ini?",
+                        hintStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
                         prefixIcon: IconButton(
                           icon: Icon(Icons.search),
                           onPressed: () {
@@ -56,6 +61,11 @@ class HomeView extends GetView<HomeController> {
                       },
                     ),
                   ),
+                  SizedBox(height: Get.height * 0.02),
+                  CustomCaraouselWidget(controller: controller),
+                  SizedBox(height: Get.height * 0.04),
+                  Text("Layanan",textAlign: TextAlign.left,)
+
                   // Column(
                   //   children: [
                   //     Obx(() {
@@ -86,3 +96,5 @@ class HomeView extends GetView<HomeController> {
     ));
   }
 }
+
+

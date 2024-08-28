@@ -7,10 +7,16 @@ import '../../../data/services/outlet_services.dart';
 class HomeController extends GetxController {
   var outletsList = <Datum>[].obs;
   var isLoading = true.obs;
+  var imageList = <String>[
+    'assets/images/image_caraousel.png',
+    'assets/images/image_caraousel.png',
+    'assets/images/image_caraousel.png',
+    'assets/images/image_caraousel.png',
+  ].obs;
+  var currentIndex = 0.obs;
 
   final OutletsService _outletsService = OutletsService();
 
-  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
@@ -25,6 +31,10 @@ class HomeController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+  }
+
+  void updateIndex(int index) {
+    currentIndex.value = index;
   }
 
   void fetchOutlets() async {
