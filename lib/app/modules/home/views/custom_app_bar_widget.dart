@@ -4,30 +4,32 @@ import 'package:laundry_link/app/modules/home/controllers/home_controller.dart';
 
 import '../../../data/utils/resources/app_theme.dart';
 import '../../../controllers/under_construction_controller.dart';
+import '../../profile/controllers/profile_controller.dart';
 import '../../widgets/custom_icon_buttons.dart';
 
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar({
     super.key,
     required this.controller,
+    required this.profileController,
     required UnderConstructionController constructionController,
   }) : _constructionController = constructionController;
 
   final UnderConstructionController _constructionController;
   final HomeController controller;
+  final ProfileController profileController;
 
   @override
   Widget build(BuildContext context) {
-    controller.fetchUserData();
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Obx(() {
-          if (controller.isLoading.value) {
+          if (profileController.isLoading.value) {
             return Center(child: CircularProgressIndicator());
           } else {
             return Text(
-              "Hai, " + controller.user.fullName,
+              "Hai, " + profileController.user.fullName,
               style: TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 16,
