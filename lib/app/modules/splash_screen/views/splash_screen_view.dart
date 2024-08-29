@@ -18,8 +18,9 @@ class SplashScreenView extends StatelessWidget {
     return Scaffold(
         body: FlutterSplashScreen.fadeIn(
       onInit: () {
+        var token = _storage.read('user_token') != null ? _storage.read('user_token') : ''; 
         debugPrint("On Init : " + _authController.isLoggedIn.value.toString());
-        debugPrint("On Init : " + _storage.read('user_token'));
+        debugPrint("On Init : " + token);
         _authController.checkLoginStatus();
         _authController.isLoggedIn.value;
       },

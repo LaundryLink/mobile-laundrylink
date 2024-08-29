@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:laundry_link/app/modules/home/controllers/home_controller.dart';
 
 import '../../../data/utils/resources/app_theme.dart';
 import '../../../controllers/under_construction_controller.dart';
@@ -7,49 +9,53 @@ import '../../widgets/custom_icon_buttons.dart';
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar({
     super.key,
+    required this.controller,
     required UnderConstructionController constructionController,
   }) : _constructionController = constructionController;
 
   final UnderConstructionController _constructionController;
+  final HomeController controller;
 
   @override
   Widget build(BuildContext context) {
+    controller.fetchUserData();
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Wrap(direction: Axis.vertical, children: [
-          Text(
-            "Lokasi Kamu",
-            style: TextStyle(
-                color: Resources.color.textButtonSecondary,
-                fontSize: 10,
-                fontWeight: FontWeight.w400),
-          ),
-          GestureDetector(
-              onTap: () => _constructionController.message(),
-              child: Wrap(
-                children: [
-                  Text(
-                    "Tlogomas",
-                    style: TextStyle(
-                        color:
-                            Resources.color.textButtonSecondary),
-                  ),
-                  Icon(
-                    Icons.keyboard_arrow_down_outlined,
-                    color: Resources.color.textButtonSecondary,
-                  )
-                ],
-              ))
-        ]),
+        Obx(() {
+          if (controller.isLoading.value) {
+            return Center(child: CircularProgressIndicator());
+          } else {
+            return Text(
+              "Hai, " + controller.user.fullName,
+              style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16,
+                  color: Resources.color.textButtonSecondary),
+            );
+          }
+        }),
         Wrap(
             alignment: WrapAlignment.center,
             crossAxisAlignment: WrapCrossAlignment.center,
             spacing: 10.0,
             direction: Axis.horizontal,
             children: [
-              CustomIconButtons(onTap: ()=> _constructionController.message(), pathIcon: 'assets/svg/notif_icon.svg', width: 24, height: 24),
-              CustomIconButtons(onTap: () => _constructionController.message(), pathIcon: 'assets/svg/chat_bubble_icon.svg', width: 24, height: 24)
+              CustomIconButtons(
+                  onTap: () => _constructionController.message(),
+                  pathIcon: 'assets/svg/notif_icon.svg',
+                  width: 20,
+                  height: 20),
+              CustomIconButtons(
+                  onTap: () => _constructionController.message(),
+                  pathIcon: 'assets/svg/chat_bubble_icon.svg',
+                  width: 20,
+                  height: 20),
+              CustomIconButtons(
+                  onTap: () => _constructionController.message(),
+                  pathIcon: 'assets/svg/fav_icon.svg',
+                  width: 20,
+                  height: 20)
             ])
       ],
     );
