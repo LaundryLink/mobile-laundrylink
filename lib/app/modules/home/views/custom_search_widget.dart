@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../controllers/under_construction_controller.dart';
+import '../../../routes/app_pages.dart';
 import '../controllers/home_controller.dart';
 
 class CustomSearchWidget extends StatelessWidget {
@@ -9,9 +10,8 @@ class CustomSearchWidget extends StatelessWidget {
     super.key,
     required UnderConstructionController constructionController,
     required this.controller,
-  }) : _constructionController = constructionController;
+  });
 
-  final UnderConstructionController _constructionController;
   final HomeController controller;
 
   @override
@@ -38,11 +38,13 @@ class CustomSearchWidget extends StatelessWidget {
               // _constructionController.message();
               controller.searchOutlets(
                   controller.outletsList.first.name);
+              Get.toNamed(Routes.DETAILOUTLET);
             },
           ),
         ),
         onSubmitted: (value) {
           controller.searchOutlets(value);
+          Get.toNamed(Routes.LISTOUTLET, arguments: controller.outletsList);
         },
       ),
     );

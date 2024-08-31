@@ -9,6 +9,10 @@ abstract class Routes {
   static const SIGNUP = _Paths.SIGNUP;
   static const SIGNINFORM = _Paths.SIGNINFORM;
   static const CONSTRUCTION = _Paths.CONSTRUCTION;
+  static const NAVBAR = _Paths.NAVBAR;
+  static const DETAILOUTLET = _Paths.DETAILOUTLET;
+  static const LISTOUTLET = _Paths.LISTLOUTLET;
+
 }
 
 abstract class _Paths {
@@ -19,4 +23,7 @@ abstract class _Paths {
   static const SIGNUP = '/signup';
   static const SIGNINFORM = '/signinform';
   static const CONSTRUCTION = '/construction';
+  static const NAVBAR = '/navbar';
+  static const DETAILOUTLET = '/detail_outlet';
+  static const LISTLOUTLET = '/list_outlet';
 }

@@ -1,23 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:laundry_link/app/routes/app_pages.dart';
 
 import '../../data/models/outlet_model.dart';
 import 'custom_icons.dart';
 
 class CardOutlet extends StatelessWidget {
   const CardOutlet({
-    super.key,
+    Key? key,
     required this.outlet,
-  });
+    this.marginLeft = 0,
+    this.marginRight = 0,
+    this.marginBottom = 0,
+    this.marginTop = 0,
+    this.width = 0
+  }) : super(key: key);
 
   final Datum outlet;
+  final double marginLeft;
+  final double marginRight;
+  final double marginBottom;
+  final double marginTop;
+  final double width;
+
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(onTap: ()=>print("klik " + outlet.id.toString()),
+    return GestureDetector(onTap: ()=>Get.toNamed(Routes.DETAILOUTLET, arguments: outlet),
       child: Card(
         elevation: 3,
-        margin: EdgeInsets.only(left: 25, bottom: 10, top: 10),
+        margin: EdgeInsets.only(left: marginLeft, bottom: marginBottom, top: marginTop, right: marginRight),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -28,7 +40,7 @@ class CardOutlet extends StatelessWidget {
                   topRight: Radius.circular(10)),
               child: Image.asset(
                 'assets/images/outlet_image.png',
-                width: Get.width * 0.45,
+                width: width,
                 fit: BoxFit.cover,
               ),
             ),
