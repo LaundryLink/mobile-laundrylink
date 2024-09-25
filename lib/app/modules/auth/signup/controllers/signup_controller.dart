@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../data/utils/resources/app_theme.dart';
-import '../../../../data/utils/resources/models/user_model.dart';
+import '../../../../data/models/user_model.dart';
 import '../../../../routes/app_pages.dart';
 
 class SignupController extends GetxController {

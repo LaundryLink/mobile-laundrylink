@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:laundry_link/app/data/utils/resources/app_theme.dart';
-import 'package:laundry_link/app/data/utils/resources/models/user_model.dart';
 import 'package:laundry_link/app/routes/app_pages.dart';
+
+import '../../../../data/models/user_model.dart';
 
 class SigninController extends GetxController {
   final TextEditingController emailController = TextEditingController();

@@ -60,3 +60,53 @@ class UserLoginModel {
         "password": password,
     };
 }
+
+// model for get user information
+UserGet userGetFromJson(String str) => UserGet.fromJson(json.decode(str));
+
+String userGetToJson(UserGet data) => json.encode(data.toJson());
+
+class UserGet {
+    int id;
+    String fullName;
+    String email;
+    String phoneNumber;
+    String address;
+    String role;
+    String eMoneyBalence;
+    String membershipStatus;
+
+    UserGet({
+        required this.id,
+        required this.fullName,
+        required this.email,
+        required this.phoneNumber,
+        required this.address,
+        required this.role,
+        required this.eMoneyBalence,
+        required this.membershipStatus,
+    });
+
+    factory UserGet.fromJson(Map<String, dynamic> json) => UserGet(
+        id: json["id"],
+        fullName: json["full_name"],
+        email: json["email"],
+        phoneNumber: json["phone_number"],
+        address: json["address"],
+        role: json["role"],
+        eMoneyBalence: json["e_money_balence"],
+        membershipStatus: json["membership_status"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "id": id,
+        "full_name": fullName,
+        "email": email,
+        "phone_number": phoneNumber,
+        "address": address,
+        "role": role,
+        "e_money_balence": eMoneyBalence,
+        "membership_status": membershipStatus,
+    };
+}
+
