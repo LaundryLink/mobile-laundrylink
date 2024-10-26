@@ -68,7 +68,7 @@ class SigninController extends GetxController {
       if (response.statusCode == 200) {
         debugPrint(response.data['data']['token']);
         _storage.write('user_token',response.data['data']['token']); // Simpan token autentikasi
-        Get.offAllNamed(Routes.HOME);
+        Get.offAllNamed(Routes.NAVBAR);
         Get.snackbar(
           'Welcome',
           'Login Success',
@@ -87,24 +87,4 @@ class SigninController extends GetxController {
       isLoading.value = false;
     }
   }
-
-  // Future<void> loginUser(String email, String password) async {
-  //   try {
-  //     isLoading.value = true;
-
-  //     _storage.write('user_token', _auth.currentUser!.uid); // Simpan token autentikasi
-
-  //     Get.snackbar('Success', 'Login successful',
-  //         backgroundColor: Colors.green);
-
-  //     isLoggedIn.value = true; // Set status login menjadi true
-
-  //     Get.offAllNamed(Routes.DASHBOARD); // Navigate ke HomePage atau ArticlePage dan hapus semua halaman sebelumnya
-  //   } catch (error) {
-  //     Get.snackbar('Error', 'Login failed: $error',
-  //         backgroundColor: Colors.red);
-  //   } finally {
-  //     isLoading.value = false;
-  //   }
-  // }
 }

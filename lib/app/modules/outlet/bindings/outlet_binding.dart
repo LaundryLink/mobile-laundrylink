@@ -4,6 +4,7 @@ import 'package:laundry_link/app/modules/outlet/controllers/outlet_controller.da
 class OutletBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<OutletController>(() => OutletController());
+    var outlet = Get.arguments;
+    Get.lazyPut<OutletController>(() => OutletController(outlet));
   }
 }

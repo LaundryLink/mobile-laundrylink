@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:laundry_link/app/controllers/under_construction_controller.dart';
 import 'package:laundry_link/app/data/models/outlet_model.dart';
-import 'package:laundry_link/app/data/utils/resources/app_theme.dart';
 import 'package:laundry_link/app/modules/home/controllers/home_controller.dart';
 import 'package:laundry_link/app/modules/outlet/controllers/outlet_controller.dart';
-import 'package:laundry_link/app/modules/widgets/custom_icons.dart';
 
 import 'custom_appbar_outlet.dart';
+import 'custom_card_service.dart';
+import 'custom_coupon_widget.dart';
+import 'custom_title_outlet.dart';
 
 class OutletDetailView extends GetView<OutletController> {
   final Datum outlet;
@@ -31,190 +32,99 @@ class OutletDetailView extends GetView<OutletController> {
             child: Text("No data available"),
           );
         } else {
-          return Column(
-            children: [
-              Stack(
-                children: [
-                  Image.asset(
-                    'assets/images/outlet_image.png',
-                    fit: BoxFit.cover,
-                    width: Get.width,
-                  ),
-                  CustomAppBarOutlet(
-                      constructionController: constructionController)
-                ],
-              ),
-              SizedBox(
-                height: Get.height * 0.002,
-              ),
-              Container(
-                width: Get.width,
-                padding: EdgeInsets.only(left: 20, right: 20),
-                child: Wrap(
-                  alignment: WrapAlignment.spaceBetween,
-                  crossAxisAlignment: WrapCrossAlignment.center,
-                  direction: Axis.horizontal,
+          return SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Column(
+              children: [
+                Stack(
                   children: [
-                    Column(
+                    Image.asset(
+                      'assets/images/outlet_image.png',
+                      fit: BoxFit.cover,
+                      width: Get.width,
+                    ),
+                    CustomAppBarOutlet(
+                        constructionController: constructionController)
+                  ],
+                ),
+                SizedBox(
+                  height: Get.height * 0.002,
+                ),
+                TitleDetailOutlet(
+                    outlet: outlet,
+                    constructionController: constructionController),
+                Container(
+                  width: Get.width,
+                  height: Get.height * 0.08,
+                  child: GridView.builder(
+                      padding: EdgeInsets.only(left: Get.width * 0.04),
+                      scrollDirection: Axis.horizontal,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 1,
+                        mainAxisSpacing: 5,
+                        childAspectRatio: Get.width * 0.0010,
+                      ),
+                      itemCount: 10,
+                      itemBuilder: (context, index) {
+                        return CustomCouponWidget(
+                          constructionController: constructionController,
+                        );
+                      }),
+                ),
+                SizedBox(
+                  height: Get.height * 0.02,
+                ),
+                Container(
+                    padding: EdgeInsets.only(
+                        left: Get.width * 0.04, right: Get.width * 0.04),
+                    width: Get.width,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "${outlet.name}",
+                          "Pilih paket untuk cucianmu",
                           style: TextStyle(
-                              fontWeight: FontWeight.w600, fontSize: 16),
+                              fontSize: 16, fontWeight: FontWeight.w600),
                         ),
-                        Container(
-                            color: Colors.transparent,
-                            width: Get.width * 0.36,
-                            child: Text(
-                              "${outlet.address}",
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 10,
-                                  color: Color(0xff595959)),
-                              softWrap: true,
-                            )),
                         SizedBox(
-                          height: Get.height * 0.003,
+                          height: Get.height * 0.01,
                         ),
-                        Container(
-                            width: Get.width * 0.4,
-                            color: Colors.transparent,
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                CustomIcon(
-                                  pathIcon: "assets/svg/star_icon.svg",
-                                  width: 14,
-                                ),
-                                SizedBox(
-                                  width: Get.width * 0.01,
-                                ),
-                                Text.rich(TextSpan(children: [
-                                  TextSpan(
-                                      text: "${outlet.rating}",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 12)),
-                                  TextSpan(
-                                      text:
-                                          "\t (${outlet.reviews}+ Penilaian) ",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 12,
-                                          color: Color(0xff808080)))
-                                ])),
-                              ],
-                            ))
+                        Obx(() {
+                          if (controller.isLoading.value) {
+                            return Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          } else {
+                            return SizedBox(
+                              height: Get.height * 0.5,
+                              width: Get.width,
+                              child: ListView.separated(
+                                  padding:
+                                      EdgeInsets.only(bottom: Get.width * 0.04),
+                                  separatorBuilder: (context, index) =>
+                                      SizedBox(height: Get.height * 0.017),
+                                  scrollDirection: Axis.vertical,
+                                  itemCount:
+                                      controller.serviceOutletData.length,
+                                  itemBuilder: (context, index) {
+                                    final serviceData =
+                                        controller.serviceOutletData[index];
+                                    final iconService =
+                                        controller.iconServiceList[index];
+                                    return CustomCardService(outletController: controller,
+                                        constructionController:
+                                            constructionController,
+                                        serviceOutletData: serviceData,
+                                        pathIcon: iconService);
+                                  }),
+                            );
+                          }
+                        })
                       ],
-                    ),
-                    SizedBox(
-                      height: Get.height * 0.08,
-                    ),
-                    SizedBox(
-                      width: Get.width * 0.35,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Container(
-                            alignment: Alignment.center,
-                            height: Get.height * 0.05,
-                            width: Get.width * 0.17,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(4),
-                                color: Resources.color.secondaryColor),
-                            child: Text(
-                              "data",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 14,
-                                  color: Resources.color.textButtonSecondary),
-                            ),
-                          ),
-                          SizedBox(
-                            width: Get.width * 0.01,
-                          ),
-                          Container(
-                            alignment: Alignment.center,
-                            height: Get.height * 0.05,
-                            width: Get.width * 0.17,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(4),
-                                color: Resources.color.secondaryColor),
-                            child: Text(
-                              "Chat",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 14,
-                                  color: Resources.color.textButtonSecondary),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Wrap(
-                          crossAxisAlignment: WrapCrossAlignment.center,
-                          children: [
-                            CustomIcon(
-                                pathIcon: "assets/svg/pricetag_icon.svg"),
-                            Text(
-                              "\t Dapatkan potongan harga",
-                              style: TextStyle(fontWeight: FontWeight.w500),
-                            )
-                          ],
-                        ),
-                        TextButton.icon(
-                          style: ButtonStyle(
-                              overlayColor:
-                                  WidgetStatePropertyAll(Colors.white),
-                              foregroundColor:
-                                  WidgetStatePropertyAll(Colors.black),
-                              backgroundColor:
-                                  WidgetStatePropertyAll(Colors.white),
-                              splashFactory: NoSplash.splashFactory),
-                          onPressed: () {
-                            constructionController.message();
-                          },
-                          label: Text("Lihat Semua"),
-                          iconAlignment: IconAlignment.end,
-                          icon: Icon(
-                            Icons.arrow_forward_ios,
-                            size: 12,
-                          ),
-                        )
-                      ],
-                    )
-                  ],
-                ),
-              ),
-              SingleChildScrollView(scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    Text("data"),
-                    Text("data"),
-                    Text("data"),
-                    Text("data"),
-                    Text("data"),
-                    Text("data"),
-                    Text("data"),
-                    Text("data"),
-                    Text("data"),
-                    Text("data"),
-                    Text("data"),
-                    Text("data"),
-                    Text("data"),
-                    Text("data"),
-                    Text("data"),
-                    Text("data"),
-                    Text("data"),
-                  ],
-                ),
-              )
-            ],
+                    ))
+              ],
+            ),
           );
         }
       }),

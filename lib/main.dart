@@ -15,14 +15,13 @@ void main() async {
     DeviceOrientation.portraitDown,
   ]).then((_) {
     runApp(
-    GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      color: Resources.color.primaryColor,
-      title: "Laundry Link",
-      initialRoute: AppPages.INITIAL,
-      getPages: AppPages.routes,
-    ),
-  );
+      GetMaterialApp(
+        debugShowCheckedModeBanner: false,
+        color: Resources.color.primaryColor,
+        title: "Laundry Link",
+        initialRoute: AppPages.INITIAL,
+        getPages: AppPages.routes,
+      ),
+    );
   });
-  
 }

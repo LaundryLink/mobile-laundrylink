@@ -8,28 +8,29 @@ class BottomNavBar extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() => PersistentTabView(
-          context,
-          controller: controller.tabController,
-          screens: controller.buildScreens(),
-          items: controller.navBarsItems(),
-          backgroundColor: Colors.white,
-          navBarHeight: MediaQuery.of(context).viewInsets.bottom > 0
-              ? 0.0
-              : kBottomNavigationBarHeight,
-          animationSettings: NavBarAnimationSettings(
-              navBarItemAnimation: ItemAnimationSettings(
-                  duration: Duration(milliseconds: 200), curve: Curves.ease),
-              screenTransitionAnimation: ScreenTransitionAnimationSettings(
-                animateTabTransition: true,
-                curve: Curves.ease,
-                duration: Duration(milliseconds: 200),
-              )),
-          
-          navBarStyle: NavBarStyle.style3,
-          onItemSelected: (index) {
-            controller.changePage(index);
-          },
-        ));
+    return Obx(
+      () => PersistentTabView(
+        context,
+        controller: controller.tabController,
+        screens: controller.buildScreens(),
+        items: controller.navBarsItems(),
+        backgroundColor: Colors.white,
+        navBarHeight: MediaQuery.of(context).viewInsets.bottom > 0
+            ? 0.0
+            : kBottomNavigationBarHeight,
+        animationSettings: NavBarAnimationSettings(
+            navBarItemAnimation: ItemAnimationSettings(
+                duration: Duration(milliseconds: 200), curve: Curves.ease),
+            screenTransitionAnimation: ScreenTransitionAnimationSettings(
+              animateTabTransition: true,
+              curve: Curves.ease,
+              duration: Duration(milliseconds: 200),
+            )),
+        navBarStyle: NavBarStyle.style3,
+        onItemSelected: (index) {
+          controller.changePage(index);
+        },
+      ),
+    );
   }
 }
