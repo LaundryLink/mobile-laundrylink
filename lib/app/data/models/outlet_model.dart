@@ -5,7 +5,7 @@ Outlets outletsFromJson(String str) => Outlets.fromJson(json.decode(str));
 String outletsToJson(Outlets data) => json.encode(data.toJson());
 
 class Outlets {
-    List<Datum> data;
+    List<Outlet> data;
     Paging paging;
 
     Outlets({
@@ -14,7 +14,7 @@ class Outlets {
     });
 
     factory Outlets.fromJson(Map<String, dynamic> json) => Outlets(
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+        data: List<Outlet>.from(json["data"].map((x) => Outlet.fromJson(x))),
         paging: Paging.fromJson(json["paging"]),
     );
 
@@ -24,7 +24,7 @@ class Outlets {
     };
 }
 
-class Datum {
+class Outlet {
     int id;
     String name;
     String address;
@@ -34,7 +34,7 @@ class Datum {
     int totalOrders;
     int ownerId;
 
-    Datum({
+    Outlet({
         required this.id,
         required this.name,
         required this.address,
@@ -45,7 +45,7 @@ class Datum {
         required this.ownerId,
     });
 
-    factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+    factory Outlet.fromJson(Map<String, dynamic> json) => Outlet(
         id: json["id"],
         name: json["name"],
         address: json["address"],

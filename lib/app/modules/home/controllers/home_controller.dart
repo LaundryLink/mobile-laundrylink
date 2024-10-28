@@ -21,8 +21,8 @@ class HomeController extends GetxController {
     ];
   }
 
-  var outletsList = <Datum>[].obs;
-  var outletsList2 = <Datum>[].obs;
+  var outletsList = <Outlet>[].obs;
+  var outletsList2 = <Outlet>[].obs;
   var isLoading = true.obs;
   var currentIndex = 0.obs;
   var imageList = <String>[

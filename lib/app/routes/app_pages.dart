@@ -8,6 +8,8 @@ import 'package:laundry_link/app/modules/home/views/bottom_nav_bar.dart';
 import 'package:laundry_link/app/modules/outlet/bindings/outlet_binding.dart';
 import 'package:laundry_link/app/modules/outlet/views/outlet_detail_view.dart';
 import 'package:laundry_link/app/modules/outlet/views/outlet_list_view.dart';
+import 'package:laundry_link/app/modules/payment/bindings/payment_binding.dart';
+import 'package:laundry_link/app/modules/payment/views/custom_tab_payment.dart';
 import 'package:laundry_link/app/modules/splash_screen/views/splash_screen_view.dart';
 import 'package:laundry_link/app/modules/widgets/under_construction_view.dart';
 
@@ -48,13 +50,19 @@ class AppPages {
         binding: HomeBinding()),
     GetPage(
         name: _Paths.DETAILOUTLET,
-        page: () => OutletDetailView(outlet: Get.arguments,),
+        page: () => OutletDetailView(
+              outlet: Get.arguments,
+            ),
         binding: OutletBinding()),
     GetPage(
         name: _Paths.LISTLOUTLET,
         page: () => OutletListView(),
         binding: OutletBinding(),
         arguments: Get.arguments),
+    GetPage(
+        name: _Paths.PAYMENTNAVIGATION,
+        page: () => CustomTabPayment(),
+        binding: PaymentBinding()),
     GetPage(name: _Paths.CONSTRUCTION, page: () => UnderConstructionView()),
   ];
 }

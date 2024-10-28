@@ -11,7 +11,7 @@ import 'custom_coupon_widget.dart';
 import 'custom_title_outlet.dart';
 
 class OutletDetailView extends GetView<OutletController> {
-  final Datum outlet;
+  final Outlet outlet;
   const OutletDetailView({Key? key, required this.outlet}) : super(key: key);
 
   @override
@@ -112,7 +112,9 @@ class OutletDetailView extends GetView<OutletController> {
                                         controller.serviceOutletData[index];
                                     final iconService =
                                         controller.iconServiceList[index];
-                                    return CustomCardService(outletController: controller,
+                                    return CustomCardService(
+                                        outlet: outlet,
+                                        outletController: controller,
                                         constructionController:
                                             constructionController,
                                         serviceOutletData: serviceData,

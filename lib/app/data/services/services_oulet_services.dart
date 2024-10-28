@@ -31,8 +31,8 @@ class ServicesOutlet {
       }
     } catch (e) {
       print(e);
-      throw Exception(e);
-      // throw Get.snackbar("Error", e.toString());
+      // throw Exception(e);
+      throw Get.snackbar("Error", e.toString());
     }
   }
 }

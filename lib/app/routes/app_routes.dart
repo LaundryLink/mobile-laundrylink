@@ -12,6 +12,7 @@ abstract class Routes {
   static const NAVBAR = _Paths.NAVBAR;
   static const DETAILOUTLET = _Paths.DETAILOUTLET;
   static const LISTOUTLET = _Paths.LISTLOUTLET;
+  static const PAYMENTNAVIGATION = _Paths.PAYMENTNAVIGATION;
 
 }
 
@@ -25,5 +26,6 @@ abstract class _Paths {
   static const CONSTRUCTION = '/construction';
   static const NAVBAR = '/navbar';
   static const DETAILOUTLET = '/detail_outlet';
-  static const LISTLOUTLET = '/list_outlet';
+  static const LISTLOUTLET = '/list-outlet';
+  static const PAYMENTNAVIGATION = '/payment-nav';
 }

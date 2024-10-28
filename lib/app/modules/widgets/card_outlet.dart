@@ -16,7 +16,7 @@ class CardOutlet extends StatelessWidget {
     this.width = 0
   }) : super(key: key);
 
-  final Datum outlet;
+  final Outlet outlet;
   final double marginLeft;
   final double marginRight;
   final double marginBottom;

@@ -13,7 +13,7 @@ class TitleDetailOutlet extends StatelessWidget {
     required this.constructionController,
   });
 
-  final Datum outlet;
+  final Outlet outlet;
   final UnderConstructionController constructionController;
 
   @override

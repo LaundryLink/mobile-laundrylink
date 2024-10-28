@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:laundry_link/app/data/models/outlet_model.dart';
 import 'package:laundry_link/app/data/models/services_model.dart';
 import 'package:laundry_link/app/modules/outlet/controllers/outlet_controller.dart';
+import 'package:laundry_link/app/routes/app_pages.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../../controllers/under_construction_controller.dart';
@@ -13,6 +15,7 @@ import 'service_menu.dart';
 class CustomCardService extends StatelessWidget {
   const CustomCardService({
     super.key,
+    this.outlet,
     required this.constructionController,
     required this.serviceOutletData,
     required this.pathIcon,
@@ -24,7 +27,7 @@ class CustomCardService extends StatelessWidget {
   final UnderConstructionController constructionController;
   final Service serviceOutletData;
   final OutletController outletController;
-
+  final Outlet? outlet;
   final String pathIcon;
   final double borderRadius;
   final double iconWidth;
@@ -69,7 +72,7 @@ class CustomCardService extends StatelessWidget {
                     ]),
                     SizedBox(height: Get.height * 0.01),
                     Text(
-                        "${Resources.currencyFormat.currency.formatDouble(serviceOutletData.priceItem.toDouble()) }/${serviceOutletData.serviceItemFormat}")
+                        "${Resources.currencyFormat.currency.formatDouble(serviceOutletData.priceItem.toDouble())}/${serviceOutletData.serviceItemFormat}")
                   ],
                 ),
               ),
@@ -144,31 +147,54 @@ class CustomCardService extends StatelessWidget {
                                         ElevatedButton(
                                             style: ButtonStyle(
                                                 backgroundColor:
-                                                    WidgetStatePropertyAll(Resources
-                                                        .color.secondaryColor),
+                                                    WidgetStatePropertyAll(
+                                                        Resources.color
+                                                            .secondaryColor),
                                                 shape: WidgetStatePropertyAll(
                                                     RoundedRectangleBorder(
                                                         borderRadius:
-                                                            BorderRadius.circular(
-                                                                10))),
+                                                            BorderRadius
+                                                                .circular(10))),
                                                 fixedSize:
                                                     WidgetStatePropertyAll(Size(
                                                         Get.width * 0.65,
                                                         Get.height * 0.01))),
                                             onPressed: () {
-                                              constructionController.message();
+                                              Get.toNamed(
+                                                  Routes.PAYMENTNAVIGATION,
+                                                  arguments: {
+                                                    'outlet': outlet,
+                                                    'service':
+                                                        serviceOutletData,
+                                                    'quantities':
+                                                        outletController
+                                                            .quantities
+                                                  });
                                             },
-                                            child: Text('Simpan', style: TextStyle(color: Resources.color.textButtonSecondary),)),
+                                            child: Text(
+                                              'Simpan',
+                                              style: TextStyle(
+                                                  color: Resources.color
+                                                      .textButtonSecondary),
+                                            )),
                                         Obx(
                                           () {
                                             return Container(
                                               width: Get.width * 0.23,
-                                              height: Get.height * 0.05,alignment: Alignment.center,
-                                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),
+                                              height: Get.height * 0.05,
+                                              alignment: Alignment.center,
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
                                                   color: Resources
                                                       .color.secondaryColor),
-                                              child: Text(textAlign: TextAlign.center,
-                                                  "Rp.${outletController.totalPrice}",style: TextStyle(color: Resources.color.textButtonSecondary),),
+                                              child: Text(
+                                                textAlign: TextAlign.center,
+                                                "Rp.${outletController.totalPrice}",
+                                                style: TextStyle(
+                                                    color: Resources.color
+                                                        .textButtonSecondary),
+                                              ),
                                             );
                                           },
                                         )

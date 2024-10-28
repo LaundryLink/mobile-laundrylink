@@ -5,7 +5,7 @@ import 'package:laundry_link/app/data/services/services_oulet_services.dart';
 
 class OutletController extends GetxController {
   final ServicesOutlet _servicesOutlet = ServicesOutlet();
-  late Datum outlet;
+  late Outlet outlet;
   OutletController(this.outlet);
 
   var totalPrice = 0.obs;
@@ -27,6 +27,14 @@ class OutletController extends GetxController {
     // TODO: implement onInit
     super.onInit();
     fetchServicesOutlet();
+    try {
+      // Initialize with a specific length or get it from some data source
+      int initialLength = serviceOutletData.length; // or based on the length of your items
+      initializeQuantities(initialLength);
+    } catch (e) {
+      print("Error initializing quantities: $e");
+      // Optionally, you could show a user-friendly error message or fallback behavior here
+    }
   }
 
   @override
@@ -47,9 +55,8 @@ class OutletController extends GetxController {
   void fetchServicesOutlet() async {
     try {
       var serviceOutlet = await _servicesOutlet.fetchServices(outlet.id);
-      var availableServices = serviceOutlet.data
-          .where((service) => service.serviceEnable)
-          .toList();
+      var availableServices =
+          serviceOutlet.data.where((service) => service.serviceEnable).toList();
       if (availableServices.isNotEmpty) {
         return serviceOutletData.assignAll(availableServices);
       }
@@ -64,11 +71,16 @@ class OutletController extends GetxController {
   }
 
   void calculateTotalPrice() {
+    print(quantities);
     totalPrice.value =
         quantities.fold(0, (sum, quantity) => sum + (quantity * pricePerItem));
   }
 
   void initializeQuantities(int length) {
-    quantities.value = List<int>.filled(length, 0);
+    try {
+      quantities.value = List<int>.filled(length, 0);
+    } catch (e) {
+      // throw Exception(e.toString());
+    }
   }
 }
