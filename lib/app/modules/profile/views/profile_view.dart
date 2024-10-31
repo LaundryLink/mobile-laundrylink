@@ -97,12 +97,11 @@ class CustomAppBarProfile extends StatelessWidget {
         Positioned(
           bottom: AppBar().preferredSize.height - 25,
           child: Container(
-            color: Colors.green,
             margin: EdgeInsets.only(left: 20),
             width: Get.width,
             child: Row(
               children: [
-                CircleAvatar(
+                CircleAvatar(backgroundImage:AssetImage("assets/images/blank_picture.png",), 
                   radius: 30,
                 ),
                 SizedBox(
