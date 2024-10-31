@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../../../data/models/user_model.dart';
 import '../../../data/services/user_services.dart';
 
 class ProfileController extends GetxController {
   final UserServices _userService = UserServices();
+  final GetStorage _storage = GetStorage();
 
   var user = UserGet(
       id: 0,
@@ -23,6 +25,12 @@ class ProfileController extends GetxController {
   void onInit() {
     super.onInit();
     fetchUserData();
+  }
+
+  @override
+  void onReady() {
+    // TODO: implement onReady
+    super.onReady();
   }
 
   void fetchUserData() async {
@@ -47,6 +55,16 @@ class ProfileController extends GetxController {
       print(e);
     } finally {
       isLoading(false);
+    }
+  }
+
+  void logoutUser() {
+    try {
+      _userService.logoutUser(); 
+      _storage.remove('user_token');
+      Get.snackbar("Logout", "Logout Success");
+    } catch (e) {
+      Get.snackbar('Error controller', 'An error occurred: $e', backgroundColor: Colors.red);
     }
   }
 }

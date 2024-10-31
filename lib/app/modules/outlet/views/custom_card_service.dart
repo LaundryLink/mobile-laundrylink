@@ -160,16 +160,21 @@ class CustomCardService extends StatelessWidget {
                                                         Get.width * 0.65,
                                                         Get.height * 0.01))),
                                             onPressed: () {
-                                              Get.toNamed(
-                                                  Routes.PAYMENTNAVIGATION,
-                                                  arguments: {
-                                                    'outlet': outlet,
-                                                    'service':
-                                                        serviceOutletData,
-                                                    'quantities':
-                                                        outletController
-                                                            .quantities
-                                                  });
+                                              outletController.quantities.any(
+                                                      (quantity) =>
+                                                          quantity > 0)
+                                                  ? Get.toNamed(
+                                                      Routes.PAYMENTNAVIGATION,
+                                                      arguments: {
+                                                          'outlet': outlet,
+                                                          'service':
+                                                              serviceOutletData,
+                                                          'quantities':
+                                                              outletController
+                                                                  .quantities
+                                                        })
+                                                  : Get.snackbar(
+                                                      "Service", "Null");
                                             },
                                             child: Text(
                                               'Simpan',

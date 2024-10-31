@@ -22,6 +22,7 @@ class SigninController extends GetxController {
     super.onInit();
     checkLoginStatus();
     resetTextFields();
+    _storage.read("user_token");
   }
 
   @override

@@ -43,7 +43,7 @@ class CustomTabPayment extends GetView<PaymentController> {
                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
               ),
               Text(
-                "${Resources.currencyFormat.currency.formatString((estimateLaundryPrice + controller.adminPrice).toString())}",
+                "${Resources.currencyFormat.currency.formatDouble((estimateLaundryPrice + controller.adminPrice))}",
                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
               )
             ]),

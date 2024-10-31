@@ -252,7 +252,7 @@ class PickedUpNowView extends StatelessWidget {
                     children: [
                       Text("Estimasi Total Berat Pakaian"),
                       Text(
-                          "${controller.calculateWeightInKg(quantities).toStringAsFixed(1)} kg")
+                          "${controller.calculateWeightInKg(quantities).toStringAsFixed(2)} kg")
                     ],
                   ),
                 ),
@@ -310,7 +310,7 @@ class PickedUpNowView extends StatelessWidget {
                     alignment: WrapAlignment.spaceBetween,
                     children: [
                       Text("Estimasi Total Cucian"),
-                      Text(Resources.currencyFormat.currency.formatString(estimateLaundryPrice.toString()) )
+                      Text(Resources.currencyFormat.currency.formatDouble(estimateLaundryPrice).toString() )
                     ],
                   ),
                 ),
@@ -344,7 +344,7 @@ class PickedUpNowView extends StatelessWidget {
                             fontWeight: FontWeight.w600, fontSize: 14),
                       ),
                       Text(
-                          "${Resources.currencyFormat.currency.formatString((estimateLaundryPrice + controller.adminPrice).toString())}", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),)
+                          "${Resources.currencyFormat.currency.formatDouble((estimateLaundryPrice + controller.adminPrice))}", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),)
                     ],
                   ),
                 ),

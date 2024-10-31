@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -42,11 +41,11 @@ class PaymentController extends GetxController {
 
   double calculateLaundryPrice(
       int totalQuantities, int pricePerKg, double quantitiesPerKg) {
-    // Calculate estimated weight in kilograms
-    double estimatedWeight = totalQuantities / quantitiesPerKg;
-
+    print(totalQuantities);
+    print(pricePerKg);
+    print(quantitiesPerKg);
     // Calculate estimated price based on weight and price per kilogram
-    double estimatedPrice = estimatedWeight * pricePerKg;
+    double estimatedPrice = quantitiesPerKg * pricePerKg;
 
     return estimatedPrice;
   }

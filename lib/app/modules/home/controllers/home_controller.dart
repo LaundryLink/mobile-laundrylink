@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:laundry_link/app/modules/home/views/home_view.dart';
+import 'package:laundry_link/app/modules/profile/views/profile_view.dart';
 import 'package:laundry_link/app/modules/widgets/custom_icons.dart';
 import 'package:laundry_link/app/modules/widgets/under_construction_view.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
@@ -17,7 +18,7 @@ class HomeController extends GetxController {
     return [
       HomeView(),
       UnderConstructionView(),
-      UnderConstructionView(),
+      ProfileView()
     ];
   }
 
