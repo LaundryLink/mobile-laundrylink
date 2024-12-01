@@ -59,7 +59,7 @@ class ProfileView extends GetView<ProfileController> {
           margin: EdgeInsets.only(left: 20),
           child: GestureDetector(
             onTap: () {
-              controller.logoutUser();
+              // controller.logoutUser();
               Get.offAllNamed(Routes.SPLASH);
             },
             child: Row(

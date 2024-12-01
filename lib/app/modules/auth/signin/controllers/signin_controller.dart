@@ -5,15 +5,14 @@ import 'package:get_storage/get_storage.dart';
 import 'package:laundry_link/app/data/utils/resources/app_theme.dart';
 import 'package:laundry_link/app/routes/app_pages.dart';
 
-import '../../../../data/models/user_model.dart';
 
 class SigninController extends GetxController {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  final GetStorage _storage = GetStorage();
+  final GetStorage _storage = Get.find<GetStorage>();
+  final Dio _dio = Get.find<Dio>();
 
-  UserLoginModel? user;
   RxBool isLoading = false.obs;
   RxBool isLoggedIn = false.obs;
 
@@ -51,39 +50,38 @@ class SigninController extends GetxController {
       return;
     }
 
-    UserLoginModel user = UserLoginModel(
-        email: emailController.text, password: passwordController.text);
-
     try {
-      Dio dio = Dio();
-      final response =
-          await dio.post(Resources.staticString.api_mobile + 'api/users/login',
-              data: user.toJson(),
-              options: Options(
-                  headers: {'Content-Type': 'application/json'},
-                  validateStatus: (status) {
-                    // Accept all status codes, so we can handle them manually
-                    return status != null && status <= 500;
-                  }));
+      final requestData = {
+        'email': emailController.text,
+        'password': passwordController.text,
+      };
+
+      final response = await _dio.post(
+        '${Resources.staticString.api_mobile}api/users/login',
+        data: requestData,
+        options: Options(
+          headers: {'Content-Type': 'application/json'},
+          validateStatus: (status) => status != null && status <= 500,
+        ),
+      );
 
       if (response.statusCode == 200) {
-        debugPrint(response.data['data']['token']);
-        _storage.write('user_token',response.data['data']['token']); // Simpan token autentikasi
+        final token = response.data['data']?['token'];
+        if (token == null || token is! String) {
+          throw Exception('Invalid token format in response');
+        }
+
+        await _storage.write('user_token', token);
         Get.offAllNamed(Routes.NAVBAR);
-        Get.snackbar(
-          'Welcome',
-          'Login Success',
-          duration: Duration(seconds: 5),
-        );
+        Get.snackbar('Welcome', 'Login Success', duration: Duration(seconds: 5));
       } else {
-        print(response.data.toString());
-        Get.snackbar(
-            'Error', response.data['errors'] ?? 'Unknow error occurred',
-            backgroundColor: Colors.red);
+        final errorMessage = response.data?['message'] ?? 'Unknown error occurred';
+        throw Exception('Login failed: $errorMessage');
       }
     } catch (e) {
-      Get.snackbar('Error', 'An error occurred: $e');
-      print(e);
+      // Get.snackbar('Error', 'An error occurred: $e',
+      //     backgroundColor: Colors.red);
+      throw Exception("error : $e");
     } finally {
       isLoading.value = false;
     }

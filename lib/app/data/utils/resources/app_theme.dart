@@ -26,8 +26,8 @@ class _AppTextStyle {
 }
 
 class _AppStaticString {
-  String api_web = "http://localhost:3001/";
-  String api_mobile = "http://10.0.2.2:3001/";
+  String api_mobile= "http://localhost:3001/";
+  String api_web = "http://10.0.2.2:3001/";
   String api_mobile_dev = "https://apiv1.nopals.my.id/";
 }
 

@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -6,8 +7,8 @@ import '../../../data/models/user_model.dart';
 import '../../../data/services/user_services.dart';
 
 class ProfileController extends GetxController {
-  final UserServices _userService = UserServices();
   final GetStorage _storage = GetStorage();
+  final UserServices _userService = UserServices(dio: Dio(), storage: GetStorage());
 
   var user = UserGet(
       id: 0,

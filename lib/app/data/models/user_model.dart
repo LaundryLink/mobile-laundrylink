@@ -37,29 +37,45 @@ class UserRegisterModel {
 }
 
 // model for login user
-UserLoginModel userLoginModelFromJson(String str) => UserLoginModel.fromJson(json.decode(str));
+// To parse this JSON data, do
+//
+//     final loginModel = loginModelFromJson(jsonString);
+LoginModel loginModelFromJson(String str) => LoginModel.fromJson(json.decode(str));
 
-String userLoginModelToJson(UserLoginModel data) => json.encode(data.toJson());
+String loginModelToJson(LoginModel data) => json.encode(data.toJson());
 
-class UserLoginModel {
-    String email;
-    String password;
+class LoginModel {
+    LoginData data;
 
-    UserLoginModel({
-        required this.email,
-        required this.password,
+    LoginModel({
+        required this.data,
     });
 
-    factory UserLoginModel.fromJson(Map<String, dynamic> json) => UserLoginModel(
-        email: json["email"],
-        password: json["password"],
+    factory LoginModel.fromJson(Map<String, dynamic> json) => LoginModel(
+        data: LoginData.fromJson(json["data"]),
     );
 
     Map<String, dynamic> toJson() => {
-        "email": email,
-        "password": password,
+        "data": data.toJson(),
     };
 }
+
+class LoginData {
+    String token;
+
+    LoginData({
+        required this.token,
+    });
+
+    factory LoginData.fromJson(Map<String, dynamic> json) => LoginData(
+        token: json["token"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "token": token,
+    };
+}
+
 
 // model for get user information
 UserGet userGetFromJson(String str) => UserGet.fromJson(json.decode(str));
