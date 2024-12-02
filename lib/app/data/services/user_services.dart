@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:laundry_link/app/data/models/user_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../utils/resources/app_theme.dart';
 
@@ -21,14 +20,14 @@ class UserServices extends GetxController {
   Future<LoginData?> loginUser(Map<String, String> requestData) async {
     try {
       final response = await dio.post(
-        'http://localhost:3001/api/users/login',
+        Resources.staticString.api_mobile + 'api/users/login',
         data: jsonEncode(requestData),
         options: Options(
           headers: {'Content-Type': 'application/json'},
           validateStatus: (status) => status != null && status <= 500,
         ),
       );
-
+      
       if (response.statusCode == 200) {
         final token = response.data['data']?['token'];
         if (token == null || token is! String) {
@@ -41,7 +40,6 @@ class UserServices extends GetxController {
 
         // Simpan token ke storage
         await storage.write('user_token', token);
-        // await _prefs.setString("user_token", token);
 
         // Parsing data login ke model
         final parsedData = LoginModel.fromJson(response.data).data;
@@ -51,11 +49,12 @@ class UserServices extends GetxController {
 
         return parsedData;
       } else {
-        throw Get.snackbar(
-          'Error',
-          response.data['errors'] ?? 'Unknown error occurred',
-          backgroundColor: Colors.red,
-        );
+        // Get.snackbar(
+        //   'Error',
+        //   response.data['errors'] ?? 'Unknown error occurred',
+        //   backgroundColor: Colors.red,
+        // );
+        throw Exception("Error ${response.data['errors']}");
       }
     } catch (e) {
       throw Exception('Exception Error: $e');
